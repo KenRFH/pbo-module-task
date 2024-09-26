@@ -1,0 +1,153 @@
+using System;
+using System.Collections.Generic;
+
+public class hewan
+{
+    public string nama;
+    public int umur;
+
+    public hewan(string nama, int umur)
+    {
+        this.nama = nama;
+        this.umur = umur;
+    }
+    public virtual string suara()
+    {
+        return("Hewan Bersuara");
+    }
+    public virtual string infohewan()
+    {
+        return($"Nama hewan: {nama}, umur: {umur} tahun, ");
+    } 
+}
+
+public class mamalia : hewan
+{
+    public int jumlahKaki;
+    public mamalia(string nama, int umur, int jumlahKaki) : base(nama, umur)
+    {
+        this.jumlahKaki = jumlahKaki;
+    }
+    public override string infohewan()
+    {
+        return base.infohewan() + $" jumlah kaki:{jumlahKaki}";
+    }
+}
+
+public class reptil : hewan
+{
+    public int panjangTubuh;
+    public reptil(string nama, int umur, int panjangTubuh) : base(nama, umur)
+    {
+        this.panjangTubuh = panjangTubuh;
+    }
+    public override string infohewan()
+    {
+        return base.infohewan() + $" dengan panjang tubuh: {panjangTubuh} meter";
+    }
+}
+
+public class singa : mamalia
+{
+    public singa(string nama, int umur, int jumlahKaki) : base(nama, umur, jumlahKaki)
+    {
+    }
+    public override string suara()
+    {
+        return base.infohewan() + $" hewan singa dengan jumlah kaki {jumlahKaki}, sedang mengaum kencang";
+    }
+    public void mengaum()
+    {
+        Console.WriteLine("Singa cantik sedang Aummmmmm.............AUM\n");
+    }
+    
+}
+
+public class gajah : mamalia
+{
+    public gajah(string nama, int umur, int jumlahKaki) : base(nama, umur, jumlahKaki)
+    {
+    }
+    public override string suara()
+    {
+        return base.infohewan() + $" adalah hewan gajah, sedang bersuara seperti terompet\n";
+    }
+}
+
+class ular : reptil
+{
+    public ular(string nama, int umur, int panjangTubuh) : base(nama, umur, panjangTubuh)
+    {
+    }
+    public override string suara()
+    {
+        return base.infohewan() + $", adalah ular sedang mendesis kencang";
+    }
+    public void merayap()
+    {
+        Console.WriteLine($"ular python sedang merayap pada dinding");
+    }
+
+}
+
+class buaya : reptil
+{
+    public buaya(string nama, int umur, int panjangTubuh) : base(nama, umur, panjangTubuh)
+    {
+
+    }
+    public override string suara()
+    {
+        return base.infohewan() + $" adalah buaya dengan suara, 'kalo aku jadi pacar kamu, aku gabakal gitu'";
+    }
+}
+
+class KebunBinatang
+{
+    private List<hewan> koleksihewan = new List<hewan>();
+
+    public void tambahHewan(hewan hewan)
+    {
+        koleksihewan.Add(hewan);
+    }
+    public void daftarHewan()
+    {
+        foreach(hewan hewan in koleksihewan)
+        {
+            Console.WriteLine(hewan.infohewan());
+            Console.WriteLine(hewan.suara());
+        }
+    }
+
+}
+
+class program
+{
+    static void Main(string[] args)
+    {
+        KebunBinatang kebunbinatang = new KebunBinatang();
+
+        singa singa = new singa("ken", 90, 4);
+        gajah gajah = new gajah("rijal", 90, 4);
+        ular ular = new ular("opa", 80, 100);
+        buaya buaya = new buaya("yuda", 78, 9000);
+
+        kebunbinatang.tambahHewan(singa);
+        kebunbinatang.tambahHewan(gajah);
+        kebunbinatang.tambahHewan(ular);
+        kebunbinatang.tambahHewan(buaya);
+
+        kebunbinatang.daftarHewan();
+
+        Console.WriteLine(singa.suara());
+        Console.WriteLine(gajah.suara());
+        Console.WriteLine(ular.suara());
+        Console.WriteLine(buaya.suara());
+
+        Console.WriteLine();
+        singa.mengaum();
+
+        ular.merayap();
+
+    }
+}
